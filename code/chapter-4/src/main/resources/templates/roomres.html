@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+  <meta charset="UTF-8">
+  <title>Landon Hotel: Room Reservations</title>
+</head>
+<body>
+<h1>Welcome to the Reservations Page</h1>
+<table>
+  <tr>
+    <td>Room</td>
+    <td>Room Number</td>
+    <td>Guest</td>
+  </tr>
+  <!--    This is how you iterate over an item in Thymeleaf -->
+  <tr th:each="roomReservation: ${roomReservations}">
+    <td th:text="$roomReservation.roomName">Room Name</td>
+    <td th:text="${roomReservation.roomNumber}">Room Number</td>
+    <td th:text="${roomReservation.lastName}!=null? ${roomReservation.lastName} + ', ' + ${roomReservation.firstName}: 'VACANT'">
+      Guest
+    </td>
+  </tr>
+</table>
+</body>
+</html>
+
+<!--Same name as what we returned from the controller-->
+<!--Note that this doesn't work currently because of how Thymeleaf is implemented-->
