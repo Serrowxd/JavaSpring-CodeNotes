@@ -64,6 +64,26 @@ public class ReservationService {
         return roomReservations;
     }
 
+    public void addGuest(Guest guest) { // void because not returning anything
+        if (null == guest) {
+            throw new RuntimeException("Guest cannot be null"); // best is to map to a specific response code
+        }
+        this.guestRepository.save(guest);
+    }
+
+    public List<Room> getRooms() {
+        Iterable<Room> rooms = this.roomRepository.findAll();
+        List<Room> roomList = new ArrayList<>();
+        rooms.forEach(roomList::add); // room -> { roomList.add(room) }
+        roomList.sort(new Comparator<Room>() {
+            @Override
+            public int compare(Room o1, Room o2) {
+                return o1.getRoomNumber().compareTo(o2.getRoomNumber());
+            }
+        });
+        return roomList;
+    }
+
     public List<Guest> getHotelGuests(){
         Iterable<Guest> guests = this.guestRepository.findAll();
         List<Guest> guestList = new ArrayList<>();
